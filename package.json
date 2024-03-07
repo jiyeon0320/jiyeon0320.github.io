@@ -1,0 +1,17 @@
+{
+  "name": "jiyeon0320.github.io",
+  "description": "dev study blog",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ji Yeon SHIN",
+  "license": "ISC",
+  "dependencies": {
+    "vite": "5.1.5"
+  }
+}
