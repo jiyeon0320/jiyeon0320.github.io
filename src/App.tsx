@@ -1,11 +1,19 @@
 import { useState } from 'react'
 import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import PostListPage from './pages/PostList/PostListPage'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+      <Routes>
+        <Route
+          path="/list"
+          element={<PostListPage />}
+        />
+      </Routes>
       ssss
       <div>
         <a
