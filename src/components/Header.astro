@@ -1,0 +1,40 @@
+---
+import { SITE_TITLE } from '@/consts'
+---
+
+<header class="site-header">
+  <div class="container inner">
+    <a class="brand" href="/">{SITE_TITLE}</a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+  }
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .brand {
+    font-weight: 700;
+    color: var(--fg);
+  }
+  nav {
+    display: flex;
+    gap: 1.25rem;
+  }
+  nav a {
+    color: var(--muted);
+  }
+  nav a:hover {
+    color: var(--fg);
+    text-decoration: none;
+  }
+</style>

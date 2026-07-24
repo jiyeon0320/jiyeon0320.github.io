@@ -1,0 +1,24 @@
+---
+import { AUTHOR } from '@/consts'
+const year = new Date().getFullYear()
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <span>© {year} {AUTHOR}</span>
+    <a href="/rss.xml">RSS</a>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 1.5rem 0;
+  }
+  .site-footer .container {
+    display: flex;
+    justify-content: space-between;
+  }
+</style>

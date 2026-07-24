@@ -24,21 +24,29 @@ Obsidian → **Open folder as vault** → 이 저장소의 `src/content/blog` �
 
 ```yaml
 ---
-title: '글 제목'          # 필수
-description: '한 줄 요약'   # 필수
-pubDate: 2026-05-27       # 필수 (작성일)
-updatedDate: 2026-05-28   # 선택 (수정일)
-heroImage: ./cover.jpg    # 선택 (대표 이미지, 글과 같은 폴더)
+title: '글 제목'              # 필수
+description: '한 줄 요약'       # 필수
+pubDate: 2026-05-27           # 필수 (작성일)
+updatedDate: 2026-05-28       # 선택 (수정일)
+tags: ['blog', 'astro']       # 선택 (해시태그)
+heroImage: ./cover.jpg        # 선택 (대표 이미지, 글과 같은 폴더)
 ---
 ```
 
-## 4. 글끼리 연결 (위키링크)
+> 이 형식은 `src/content.config.ts` 의 스키마와 1:1로 맞춰져 있습니다.
+> 필수 항목이 빠지거나 형식이 틀리면 `npm run build` 가 **에러로 알려줍니다.**
 
-- `[[hello-bburnjilog]]` → `/blog/hello-bburnjilog/` 로 연결
-- `[[hello-bburnjilog|첫 글 보기]]` → 링크 텍스트만 바꾸기
-- **규칙:** 파일 이름은 소문자 + 하이픈(kebab-case)으로. 위키링크는 `.md`를 뺀
-  파일 이름을 그대로 적어야 주소가 맞습니다. (`내 글.md`처럼 띄어쓰기/대문자가
-  들어가면 URL이 지저분해집니다.)
+## 4. 글끼리 연결
+
+- 글 주소는 **파일 이름**으로 정해집니다: `first-post.md` → `/blog/first-post/`
+- 다른 글로 링크할 때는 표준 마크다운 링크를 씁니다:
+  `[첫 글 보기](/blog/first-post/)`
+- **규칙:** 파일 이름은 소문자 + 하이픈(kebab-case)으로. (`내 글.md`처럼
+  띄어쓰기/대문자가 들어가면 URL이 지저분해집니다.)
+
+> ⚠️ 옵시디언의 `[[위키링크]]` 문법은 **기본 Astro에서는 자동 링크로 변환되지
+> 않습니다.** 위키링크를 그대로 쓰고 싶으면 `remark-wiki-link` 플러그인을
+> `astro.config.mjs` 에 붙여야 합니다. (필요하면 추가해 드릴게요.)
 
 ## 5. 이미지
 
