@@ -1,5 +1,5 @@
 import { defineCollection } from 'astro:content'
-import { z } from 'astro:schema'
+import { z } from 'astro/zod'
 import { glob } from 'astro/loaders'
 
 // 블로그 글: src/content/blog/*.md
