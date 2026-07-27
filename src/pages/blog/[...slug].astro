@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content'
 import type { GetStaticPaths } from 'astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import { AUTHOR } from '@/consts'
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection('blog')
@@ -16,43 +17,130 @@ const { Content } = await render(post)
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })
+
+const initial = AUTHOR.trim().charAt(0)
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
-  <article>
-    <h1>{post.data.title}</h1>
-    <p class="meta">
-      <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
-      {
-        post.data.updatedDate && (
-          <span> · 수정 {fmt(post.data.updatedDate)}</span>
-        )
-      }
-    </p>
-    {
-      post.data.tags.length > 0 && (
-        <div class="tags">
-          {post.data.tags.map((t) => (
-            <span class="tag">#{t}</span>
-          ))}
-        </div>
-      )
-    }
-    <hr />
+  <article class="post">
+    <header class="post-header">
+      <p class="post-date">
+        <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+        {post.data.updatedDate && <span> · 수정 {fmt(post.data.updatedDate)}</span>}
+      </p>
+      <h1 class="post-title">{post.data.title}</h1>
+      {post.data.description && <p class="post-deck">{post.data.description}</p>}
+      <div class="post-author">
+        <span class="avatar" aria-hidden="true">{initial}</span>
+        <span class="author-name">{AUTHOR}</span>
+      </div>
+    </header>
+
     <div class="prose">
       <Content />
     </div>
-    <hr />
-    <a href="/">← 목록으로</a>
+
+    <footer class="post-footer">
+      {
+        post.data.tags.length > 0 && (
+          <div class="tags">
+            {post.data.tags.map((t) => (
+              <span class="tag">{t}</span>
+            ))}
+          </div>
+        )
+      }
+      <a class="back" href="/">← 목록으로</a>
+    </footer>
   </article>
 </BaseLayout>
 
 <style>
-  article h1 {
-    margin: 0 0 0.5rem;
-    font-size: 2rem;
+  .post-header {
+    text-align: center;
+    margin: 2.5rem 0 3rem;
   }
-  .meta {
+  .post-date {
+    margin: 0 0 1.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .post-date time {
+    font-size: inherit;
+  }
+  .post-title {
+    margin: 0 0 1.25rem;
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+  .post-deck {
+    max-width: 34rem;
+    margin: 0 auto 2rem;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .post-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+  .avatar {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .author-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .post-footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     margin: 0;
+  }
+  .tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+  }
+  .back {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .back:hover {
+    color: var(--fg);
+    text-decoration: none;
+  }
+
+  @media (max-width: 34rem) {
+    .post-title {
+      font-size: 2rem;
+    }
   }
 </style>
