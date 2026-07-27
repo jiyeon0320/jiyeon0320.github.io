@@ -22,7 +22,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site)
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href="/rss.xml" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Open Graph -->
