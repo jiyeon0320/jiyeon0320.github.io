@@ -6,6 +6,9 @@
   --accent: #2563eb;
   --code-bg: #f4f4f5;
   --max-width: 720px;
+  /* 본문(한글)은 산세리프, 제목·인용구 등 디스플레이 요소는 세리프로 에디토리얼 대비 */
+  --serif: Georgia, 'Times New Roman', 'Nanum Myeongjo', 'Apple Myungjo',
+    'Batang', serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -58,8 +61,10 @@ a:hover {
 h1,
 h2,
 h3 {
+  font-family: var(--serif);
   line-height: 1.3;
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 hr {
@@ -75,12 +80,37 @@ time {
 
 /* --- 마크다운 본문 --- */
 .prose {
-  font-size: 1.05rem;
+  font-size: 1.0625rem;
+  line-height: 1.85;
+}
+.prose > p {
+  margin: 0 0 1.5rem;
+}
+/* 소제목: 세리프 + 섹션 사이 넉넉한 여백 */
+.prose h2 {
+  font-size: 1.6rem;
+  margin: 3rem 0 1rem;
+}
+.prose h3 {
+  font-size: 1.25rem;
+  margin: 2.5rem 0 0.75rem;
+}
+/* 첫 문단 드롭캡 — 에디토리얼 시그니처 */
+.prose > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--serif);
+  font-size: 3.4rem;
+  line-height: 0.85;
+  font-weight: 700;
+  padding: 0.1rem 0.6rem 0 0;
+  color: var(--fg);
 }
 .prose img {
+  display: block;
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
+  margin: 2.5rem auto;
+  border-radius: 2px;
 }
 .prose pre {
   padding: 1rem;
@@ -106,11 +136,21 @@ time {
   padding: 0.5rem 0.75rem;
   text-align: left;
 }
+/* 인용구: 중앙 정렬 세리프 이탤릭 풀인용구 */
 .prose blockquote {
-  margin: 1.5rem 0;
-  padding: 0.25rem 1rem;
-  border-left: 3px solid var(--border);
-  color: var(--muted);
+  margin: 2.5rem auto;
+  max-width: 34rem;
+  padding: 0;
+  border: none;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--accent);
+}
+.prose blockquote p {
+  margin: 0.5rem 0;
 }
 
 /* --- 태그 --- */
